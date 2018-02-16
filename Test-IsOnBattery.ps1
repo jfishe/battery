@@ -1,0 +1,24 @@
+Param($computer = "localhost")
+
+# add the required .NET assembly
+Add-Type -AssemblyName System.Windows.Forms
+
+Function Test-IsOnBattery{
+    Param([string]$computer)
+    [BOOL](Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ComputerName $computer).PowerOnLine
+} # end function test-IsOnBattery
+
+$FullChargedCapacity = (Get-WmiObject -Class BatteryFullChargedCapacity -Namespace root\wmi -ComputerName $computer).FullChargedCapacity
+$RemainingCapacity = (Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ComputerName $computer).RemainingCapacity
+$iPerecent = [int](($RemainingCapacity / $FullChargedCapacity * 100 ) % 100)
+
+while ($true) {
+    If (Test-IsOnBattery($computer) -AND ($iPerecent -gt 75)) {
+        $dummy = [System.Windows.Forms.MessageBox]::Show('Battery is fully charged') }
+    ElseIf (-NOT (Test-IsOnBattery($computer)) -AND ($iPerecent -lt 50)) {
+        $dummy = [System.Windows.Forms.MessageBox]::Show('Please charge Battery') }
+    Else {
+        $dummy = [System.Windows.Forms.MessageBox]::Show('Battery is OK')
+    }
+    Start-Sleep -Seconds 600
+}
