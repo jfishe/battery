@@ -9,10 +9,11 @@ Function Test-IsOnBattery{
 } # end function test-IsOnBattery
 
 $FullChargedCapacity = (Get-WmiObject -Class BatteryFullChargedCapacity -Namespace root\wmi -ComputerName $computer).FullChargedCapacity
-$RemainingCapacity = (Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ComputerName $computer).RemainingCapacity
-$iPercent = [int](($RemainingCapacity / $FullChargedCapacity * 100 ) % 100)
 
 while ($true) {
+    $RemainingCapacity = (Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ComputerName $computer).RemainingCapacity
+    $iPercent = [int](($RemainingCapacity / $FullChargedCapacity * 100 ) % 100)
+
     If (Test-IsOnBattery($computer) -AND ($iPercent -gt 75)) {
         [System.Windows.Forms.MessageBox]::Show('Battery is fully charged') }
     ElseIf (-NOT (Test-IsOnBattery($computer)) -AND ($iPercent -lt 50)) {
