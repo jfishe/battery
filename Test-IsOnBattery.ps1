@@ -3,6 +3,9 @@ Param($computer = "localhost")
 # add the required .NET assembly
 Add-Type -AssemblyName System.Windows.Forms
 
+# Add New-BurntToastNotification
+Import-Module BurntToast
+
 Function Test-PowerOnLine{
     Param([string]$computer)
     [BOOL](Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ComputerName $computer).PowerOnLine
@@ -17,12 +20,14 @@ while ($true) {
     $iPercent = [int](($RemainingCapacity / $FullChargedCapacity * 100 ) % 100)
 
     If (($IsOnBattery) -AND ($iPercent -lt 50)) {
-            [System.Windows.Forms.MessageBox]::Show('Please charge Battery') }
-    ElseIf (($iPercent -gt 75) -AND (-NOT ($IsOnBattery))) {
-        [System.Windows.Forms.MessageBox]::Show('Unplug. Battery is fully charged') }
-    # Else {
-    #     [System.Windows.Forms.MessageBox]::Show('Battery is OK')
-    # }
+        New-BurntToastNotification -Text "Please Plug In!", 'Batter Charge < 50%!' -SnoozeAndDismiss
+        # [System.Windows.Forms.MessageBox]::Show('Please charge Battery')
+    } ElseIf (($iPercent -gt 75) -AND (-NOT ($IsOnBattery))) {
+        New-BurntToastNotification -Text "Please Unplug!", 'Batter Charge > 75%!' -SnoozeAndDismiss
+        # [System.Windows.Forms.MessageBox]::Show('Unplug. Battery is fully charged')
+    # } Else {
+      #     [System.Windows.Forms.MessageBox]::Show('Battery is OK')
+    }
 
     Start-Sleep -Seconds 600
 }
