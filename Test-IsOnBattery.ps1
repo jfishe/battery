@@ -20,13 +20,11 @@ while ($true) {
     $iPercent = [int](($RemainingCapacity / $FullChargedCapacity * 100 ) % 100)
 
     If (($IsOnBattery) -AND ($iPercent -lt 50)) {
-        New-BurntToastNotification -Text "Please Plug In!", 'Batter Charge < 50%!' -SnoozeAndDismiss
-        # [System.Windows.Forms.MessageBox]::Show('Please charge Battery')
+        New-BurntToastNotification -Text "Please Plug In!", 'Batter Charge < 50%!' -UniqueIdentifier 'Test-IsOnBattery'
+    } ElseIf (($iPercent -gt 99) -AND (-NOT ($IsOnBattery))) {
+        Continue
     } ElseIf (($iPercent -gt 75) -AND (-NOT ($IsOnBattery))) {
-        New-BurntToastNotification -Text "Please Unplug!", 'Batter Charge > 75%!' -SnoozeAndDismiss
-        # [System.Windows.Forms.MessageBox]::Show('Unplug. Battery is fully charged')
-    # } Else {
-      #     [System.Windows.Forms.MessageBox]::Show('Battery is OK')
+        New-BurntToastNotification -Text "Please Unplug!", 'Batter Charge > 75%!' -UniqueIdentifier 'Test-IsOnBattery'
     }
 
     Start-Sleep -Seconds 600
