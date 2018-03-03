@@ -21,21 +21,19 @@ notifications will repeat every 10 minutes.
 [ScheduleTask.ps1](file://./ScheduleTask.ps1) creates a Task Scheduler entry
 for the current user, called *Battery Monitor*. *Battery Monitor*, scheduled to
 run at user login, executes
-[Test-IsOnBattery.ps1](file://./Test-IsOnBattery.ps1) which checks every
-5 minutes and sends a notification to plug or unplug when outside the
-recommended power range.
+*Test-IsOnBattery.ps1* which checks every 5 minutes and sends a notification to
+plug or unplug when outside the recommended power range.
 
 The assumed location for the files is
 `%USERPROFILE%\Documents\Scripts\battery`. Other locations may prevent Task
 Scheduler from starting, e.g., `%USERPROFILE\Google Drive\Scripts\battery` fails
-to start. The path is hardcoded in
-[Battery Monitor.xml](file:Battery Monitor.xml): twice on line 46.
+to start. The path is hardcoded in *Battery Monitor.xml*: twice on line 46.
 
 ## Dependencies
 
 * [BurntToast](https://www.powershellgallery.com/packages/BurntToast)
-  ScheduleTask.ps1 will install under the CurrentUser if not already. It will
-  also set PSGallery as a Trusted PSRepository.
+  *ScheduleTask.ps1* will install under the `CurrentUser` if not already. It will
+  also set PSGallery as a Trusted `PSRepository`.
 
 ## Credit
 * [petri building battery manager powershell](https://www.petri.com/building-battery-manager-powershell) demonstrated how to access the battery status using `Get-WmiObject`.
