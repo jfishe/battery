@@ -12,9 +12,9 @@ cycles for the laptop battery, supposedly 2000 versus 200, for charging from
   will stop charging at 100%. There is some risk of higher temperature
   degradation of the battery.
 
-If the laptop is left plugged in and laptop stops charging, toast notifications
-will not be issued in is a good condition. Between 75 and fully charged, toast
-notifications will repeat every 10 minutes.
+If the laptop is left plugged in and laptop stops charging, Toast notifications
+will not be issued since fully charged is a reasonably good condition. Between
+75 and fully charged, toast notifications will repeat every 10 minutes.
 
 ## Installation
 
@@ -41,6 +41,11 @@ to start. The path is hardcoded in *Battery Monitor.xml*: twice on line 46.
 * [fossbytes should i keep laptop battery plugged all time harmful](https://fossbytes.com/should-i-keep-laptop-battery-plugged-all-time-harmful/) provides the rationale for the charging range.
 
 ## History
+
+### v0.1.4
+
+* Add MIT license. Same as dependency.
+* Fix README to align with fully charged notifications.
 
 ### v0.1.3
 
