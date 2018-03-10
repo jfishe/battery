@@ -14,18 +14,18 @@ Function Test-PowerOnLine{
 $FullChargedCapacity = (Get-WmiObject -Class BatteryFullChargedCapacity -Namespace root\wmi -ComputerName $computer).FullChargedCapacity
 
 while ($true) {
-    $IsOnBattery = -NOT (Test-PowerOnLine($computer))
+    $IsPowerOnLine = Test-PowerOnLine($computer)
 
     $RemainingCapacity = (Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ComputerName $computer).RemainingCapacity
     $iPercent = [int](($RemainingCapacity / $FullChargedCapacity * 100 ) % 100)
     $IsCharging = [BOOL](Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ComputerName $computer).Charging
 
-    If (($IsOnBattery) -AND ($iPercent -lt 50)) {
-        New-BurntToastNotification -Text "Please Plug In!", 'Batter Charge < 50%!' -UniqueIdentifier 'Test-IsOnBattery'
-    } ElseIf ((-NOT ($IsCharging)) -AND (-NOT ($IsOnBattery))) {
+    If ( (-NOT ($IsPowerOnLine)) -AND ($iPercent -lt 50)) {
+        New-BurntToastNotification -Text "Please Plug In!", 'Batter Charge < 50%!' -UniqueIdentifier 'Test-IsPowerOnLine'
+    } ElseIf ((-NOT ($IsCharging)) -AND ($IsPowerOnLine)) {
         Continue
-    } ElseIf (($iPercent -gt 75) -AND (-NOT ($IsOnBattery))) {
-        New-BurntToastNotification -Text "Please Unplug!", 'Batter Charge > 75%!' -UniqueIdentifier 'Test-IsOnBattery'
+    } ElseIf (($iPercent -gt 75) -AND ($IsPowerOnLine)) {
+        New-BurntToastNotification -Text "Please Unplug!", 'Batter Charge > 75%!' -UniqueIdentifier 'Test-IsPowerOnLine'
     }
 
     Start-Sleep -Seconds 600
