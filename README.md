@@ -12,8 +12,8 @@ cycles for the laptop battery, supposedly 2000 versus 200, for charging from
   will stop charging at 100%. There is some risk of higher temperature
   degradation of the battery.
 
-If the laptop is left plugged in and exceeds 99%, toast notifications will stop
-since always plugged in is a good condition. Between 75 and 100%, toast
+If the laptop is left plugged in and laptop stops charging, toast notifications
+will not be issued in is a good condition. Between 75 and fully charged, toast
 notifications will repeat every 10 minutes.
 
 ## Installation
