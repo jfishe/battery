@@ -1,8 +1,5 @@
 Param($computer = "localhost")
 
-# add the required .NET assembly
-Add-Type -AssemblyName System.Windows.Forms
-
 # Add New-BurntToastNotification
 Import-Module BurntToast
 
