@@ -36,5 +36,22 @@ to start. The path is hardcoded in *Battery Monitor.xml*: twice on line 46.
   also set PSGallery as a Trusted `PSRepository`.
 
 ## Credit
+
 * [petri building battery manager powershell](https://www.petri.com/building-battery-manager-powershell) demonstrated how to access the battery status using `Get-WmiObject`.
 * [fossbytes should i keep laptop battery plugged all time harmful](https://fossbytes.com/should-i-keep-laptop-battery-plugged-all-time-harmful/) provides the rationale for the charging range.
+
+## History
+
+### v0.1.3
+
+* Refactor to reduce number of -NOT statements and delete unused statements.
+
+### v0.1.2
+
+* Bug fix to use charging status instead of > 99% to suppress unplug warning.
+* Bug fix to formatting of Task Scheduler description.
+
+### v0.1.1
+
+* Add specific exception and catch logic to ScheduleTask.ps1.
+* Add feature to prompt user to delete old version when running ScheduleTask.ps1.
