@@ -18,10 +18,11 @@ while ($true) {
 
     $RemainingCapacity = (Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ComputerName $computer).RemainingCapacity
     $iPercent = [int](($RemainingCapacity / $FullChargedCapacity * 100 ) % 100)
+    $IsCharging = [BOOL](Get-WmiObject -Class BatteryStatus -Namespace root\wmi -ComputerName $computer).Charging
 
     If (($IsOnBattery) -AND ($iPercent -lt 50)) {
         New-BurntToastNotification -Text "Please Plug In!", 'Batter Charge < 50%!' -UniqueIdentifier 'Test-IsOnBattery'
-    } ElseIf (($iPercent -gt 99) -AND (-NOT ($IsOnBattery))) {
+    } ElseIf ((-NOT ($IsCharging)) -AND (-NOT ($IsOnBattery))) {
         Continue
     } ElseIf (($iPercent -gt 75) -AND (-NOT ($IsOnBattery))) {
         New-BurntToastNotification -Text "Please Unplug!", 'Batter Charge > 75%!' -UniqueIdentifier 'Test-IsOnBattery'
