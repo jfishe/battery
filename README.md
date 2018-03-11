@@ -42,6 +42,11 @@ to start. The path is hardcoded in *Battery Monitor.xml*: twice on line 46.
 
 ## History
 
+### v0.1.5
+* The Task Scheduler XML needs to contain the current computer name and user
+  name. Replace Task.Triggers.LogonTrigger.UserID with values from the
+  environment variables.
+
 ### v0.1.4
 
 * Add MIT license. Same as dependency.
