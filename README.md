@@ -21,8 +21,14 @@ will not be issued since fully charged is a reasonably good condition. Between
 [ScheduleTask.ps1](file://./ScheduleTask.ps1) creates a Task Scheduler entry
 for the current user, called *Battery Monitor*. *Battery Monitor*, scheduled to
 run at user login, executes
-*Test-IsOnBattery.ps1* which checks every 5 minutes and sends a notification to
-plug or unplug when outside the recommended power range.
+
+```powershell
+    .\Test-IsOnBattery.ps1 -computer [localhost] -sleep [600]
+```
+
+On -computer [default: localhost], check every -sleep [default: 600 seconds]
+and send a notification to plug or unplug when outside the recommended power
+range.
 
 The assumed location for the files is
 `%USERPROFILE%\Documents\Scripts\battery`. Other locations may prevent Task
@@ -40,9 +46,16 @@ to start. The path is hardcoded in *Battery Monitor.xml*: twice on line 46.
 * [petri building battery manager powershell](https://www.petri.com/building-battery-manager-powershell) demonstrated how to access the battery status using `Get-WmiObject`.
 * [fossbytes should i keep laptop battery plugged all time harmful](https://fossbytes.com/should-i-keep-laptop-battery-plugged-all-time-harmful/) provides the rationale for the charging range.
 
-## History
+## Change Log
+
+### v0.1.6
+
+* Change to powershell -ExecutionPolicy Bypass. Set-ExecutionPolicy does not need to be changed to Bypass for script to run as this can be set by powershell Param.
+* Combine Get-WmiObject calls into $BatteryStatus.
+* Change sleep from 600 seconds to Param $sleep with default a 600 seconds.
 
 ### v0.1.5
+
 * The Task Scheduler XML needs to contain the current computer name and user
   name. Replace Task.Triggers.LogonTrigger.UserID with values from the
   environment variables.
