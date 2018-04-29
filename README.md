@@ -16,6 +16,22 @@ If the laptop is left plugged in and laptop stops charging, Toast notifications
 will not be issued since fully charged is a reasonably good condition. Between
 75 and fully charged, toast notifications will repeat every 10 minutes.
 
+## PowerShell Repository
+
+New-ScriptFileInfo -Path C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery.ps1 -Version 0.1.6 -Author "jdfenw@gmail.com" -Description "Create Task Scheduler entry for Test-IsOnBattery"
+
+Add-Content -Path C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery.ps1 -Value @"
+	Function Update-BatteryMonitorXML { 'Update Battery Monitor.xml' }
+	Function Register-BatteryMonitor { 'Register in Task Scheduler' }
+	Workflow BatteryMonitor { 'Workflow' }
+"@
+
+Test-ScriptFileInfo -Path C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery.ps1 -Verbose
+
+Register-PSRepository -Name LocalRepo1 -SourceLocation "C:\Users\fishe\Google Drive\PowerShell" -InstallationPolicy Trusted
+
+Publish-Script -Path C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery.ps1 -Repository "LocalRepo1"
+
 ## Installation
 
 [ScheduleTask.ps1](file://./ScheduleTask.ps1) creates a Task Scheduler entry
@@ -47,6 +63,10 @@ to start. The path is hardcoded in *Battery Monitor.xml*: twice on line 46.
 * [fossbytes should i keep laptop battery plugged all time harmful](https://fossbytes.com/should-i-keep-laptop-battery-plugged-all-time-harmful/) provides the rationale for the charging range.
 
 ## Change Log
+
+### v0.2.0
+* Convert scripts into functions and combine in a module.
+* Create script module manifest.
 
 ### v0.1.6
 
