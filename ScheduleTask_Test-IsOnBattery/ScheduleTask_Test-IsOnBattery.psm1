@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 0.2.0
+.VERSION 0.2.1
 
 .GUID 858af939-79b0-40c6-8bf7-e72ac5ea1149
 
@@ -46,7 +46,18 @@ battery lifetime.
 Param()
 
 Function Register-BatteryMonitor {
+<#
+.Synopsis
+Register-BatteryMonitor Add/replace Task Scheduler App Libary entry for Battery
+Monitor. Battery Monitor will run Test-IsOnBattery at user login.
 
+.Description
+Register-BatteryMonitor Add/replace Task Scheduler App Libary entry for Battery
+Monitor. Battery Monitor will run Test-IsOnBattery at user login.
+
+The CurrentUser specified in $env:COMPUTERNAME\$env:USERNAME is used to create
+and run the function.
+#>
 # Update computer name and user name in Task Scheduler XML file
     $xml = $XmlBatteryMonitor
     $xml.Task.Triggers.LogonTrigger.UserId = "$env:COMPUTERNAME\$env:USERNAME"
@@ -65,10 +76,34 @@ Function Register-BatteryMonitor {
 }
 
 Function Unregister-BatteryMonitor {
+<#
+.Synopsis
+Unregister-BatteryMonitor remove Task Scheduler App Libary entry for Battery
+Monitor.
+
+.Description
+Unregister-BatteryMonitor remove Task Scheduler App Libary entry for Battery
+Monitor.
+#>
     Unregister-ScheduledTask -TaskName "Battery Monitor" -Confirm
 }
 
 Function Test-IsOnBattery {
+<#
+.Synopsis
+Test-IsOnBattery sends a Toast notification when battery charging/discharging
+is outside the optimum range for battery lifetime.
+
+.Description
+Test-IsOnBattery sends a Toast notification when battery charging/discharging
+is outside the optimum range for battery lifetime.
+
+A Toast notification is sent when:
+* The battery is unplugged below 50%
+* The battery is plugged-in above 75%.
+
+Toast notications stop if the battery is plugged-in and fully charged.
+#>
     Param([string]$computer = "localhost",
           [int]$sleep = 600)
 
