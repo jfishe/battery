@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 0.2.1
+.VERSION 0.2.2
 
 .GUID 858af939-79b0-40c6-8bf7-e72ac5ea1149
 
@@ -58,6 +58,7 @@ Monitor. Battery Monitor will run Test-IsOnBattery at user login.
 The CurrentUser specified in $env:COMPUTERNAME\$env:USERNAME is used to create
 and run the function.
 #>
+
 # Update computer name and user name in Task Scheduler XML file
     $xml = $XmlBatteryMonitor
     $xml.Task.Triggers.LogonTrigger.UserId = "$env:COMPUTERNAME\$env:USERNAME"
@@ -85,6 +86,7 @@ Monitor.
 Unregister-BatteryMonitor remove Task Scheduler App Libary entry for Battery
 Monitor.
 #>
+
     Unregister-ScheduledTask -TaskName "Battery Monitor" -Confirm
 }
 
@@ -104,6 +106,7 @@ A Toast notification is sent when:
 
 Toast notications stop if the battery is plugged-in and fully charged.
 #>
+
     Param([string]$computer = "localhost",
           [int]$sleep = 600)
 
