@@ -12,7 +12,7 @@
 RootModule = 'ScheduleTask_Test-IsOnBattery.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.2'
+ModuleVersion = '0.2.3'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -52,7 +52,10 @@ PowerShellVersion = '5.0'
 
 # Modules that must be imported into the global environment prior to importing this module
 # RequiredModules = @()
-RequiredModules = @('BurntToast')
+RequiredModules = @(@{ModuleName = 'BurntToast'; ModuleVersion = "0.6.1"})
+# RequiredModules = @('BitsTransfer',
+#                @{ModuleName = 'PSScheduledJob'; GUID = '50cdb55f-5ab7-489f-9e94-4ec21ff51e59'; ModuleVersion = '1.0.0.0'; })
+
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
