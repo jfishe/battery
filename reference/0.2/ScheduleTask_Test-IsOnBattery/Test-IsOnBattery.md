@@ -22,24 +22,25 @@ Test-IsOnBattery sends a Toast notification when battery charging/discharging
 is outside the optimum range for battery lifetime.
 
 A Toast notification is sent when:
+
 * The battery is unplugged below 50%
 * The battery is plugged-in above 75%.
 
-Toast notications stop if the battery is plugged-in and fully charged.
+Toast notifications stop if the battery is plugged-in and fully charged.
 
 ## EXAMPLES
 
 ### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+```Powershell
+PS C:\> Test-IsOnBattery -sleep 10
 ```
 
-{{ Add example description here }}
+Issue Toast notification every 10 seconds. Default is 600 seconds.
 
 ## PARAMETERS
 
 ### -computer
-{{Fill computer Description}}
+Only tested with `localhost`. For other computers, credentials are likely required.
 
 ```yaml
 Type: String
@@ -54,7 +55,8 @@ Accept wildcard characters: False
 ```
 
 ### -sleep
-{{Fill sleep Description}}
+How long to wait, in seconds, before checking whether batter is plugged,
+unplugged or fully charged.
 
 ```yaml
 Type: Int32

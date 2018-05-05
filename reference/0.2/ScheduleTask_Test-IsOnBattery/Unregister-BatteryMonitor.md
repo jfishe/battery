@@ -24,11 +24,33 @@ Monitor.
 ## EXAMPLES
 
 ### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+```Powershell
+PS C:\> Unregister-BatteryMonitor
+
+Confirm
+Are you sure you want to perform this action?
+Performing operation 'Delete' on Target '\Battery Monitor'.
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "Y"):
 ```
 
-{{ Add example description here }}
+When `Battery Monitor` is registered in Task Scheduler.
+
+### Example 2
+
+```Powershell
+PS C:\> Unregister-BatteryMonitor
+Unregister-ScheduledTask : No MSFT_ScheduledTask objects found with property 'TaskName' equal to
+'Battery Monitor'.  Verify the value of the property and retry.
+At C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery\ScheduleTask_Test-IsOnBattery
+.psm1:90 char:5
++     Unregister-ScheduledTask -TaskName "Battery Monitor" -Confirm
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (Battery Monitor:String) [Unregister-ScheduledTask], Cim
+   JobException
+    + FullyQualifiedErrorId : CmdletizationQuery_NotFound_TaskName,Unregister-ScheduledTask
+```
+
+When `Battery Monitor` is not registered in Task Scheduler.
 
 ## PARAMETERS
 

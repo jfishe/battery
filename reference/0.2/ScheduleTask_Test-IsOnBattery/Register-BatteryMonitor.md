@@ -29,11 +29,36 @@ and run the function.
 ## EXAMPLES
 
 ### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+
+```Powershell
+PS C:\> Register-BatteryMonitor
+
+TaskPath                                       TaskName                          State
+--------                                       --------                          -----
+\                                              Battery Monitor                   Ready
 ```
 
-{{ Add example description here }}
+When Battery Monitor is not registered.
+
+### Example 2
+
+```Powershell
+PS C:\> Register-BatteryMonitor
+Task Scheduler app already has Battery Monitor registered.
+Select Yes to register a new Battery Monitor.
+Select No to Cancel.
+
+Confirm
+Are you sure you want to perform this action?
+Performing operation 'Delete' on Target '\Battery Monitor'.
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "Y"):
+
+TaskPath                                       TaskName                          State
+--------                                       --------                          -----
+\                                              Battery Monitor                   Ready
+```
+
+When Battery Monitor is already registered, un-register with confirmation and then register Battery Monitor. This is not necessary unless the XML template for Task Scheduler changes.
 
 ## PARAMETERS
 
