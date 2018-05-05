@@ -1,6 +1,6 @@
 # Generate Toast notifications when battery is outside 50 - 75%
 
-The [BurntToast](https://www.powershellgallery.com/packages/BurntToast)
+The [BurntToast](https://www.Powershellgallery.com/packages/BurntToast)
 PSGallery module provides Toast notifications when the computer is unplugged
 below 50% or plugged above 75%. This range maximizes the available charging
 cycles for the laptop battery, supposedly 2000 versus 200, for charging from
@@ -16,53 +16,110 @@ If the laptop is left plugged in and laptop stops charging, Toast notifications
 will not be issued since fully charged is a reasonably good condition. Between
 75 and fully charged, toast notifications will repeat every 10 minutes.
 
-## PowerShell Repository
+## Powershell Repository
 
-New-ScriptFileInfo -Path C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery.ps1 -Version 0.1.6 -Author "jdfenw@gmail.com" -Description "Create Task Scheduler entry for Test-IsOnBattery"
+Clone the git repository into a convenient location and change to the cloned directory.
 
-Add-Content -Path C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery.ps1 -Value @"
-	Function Update-BatteryMonitorXML { 'Update Battery Monitor.xml' }
-	Function Register-BatteryMonitor { 'Register in Task Scheduler' }
-	Workflow BatteryMonitor { 'Workflow' }
-"@
+```Powershell
+git clone https://github.com/jfishe/battery.git # Add path to battery destination if desired.
+cd battery # The following commands assume this current working directory.
+```
 
-Test-ScriptFileInfo -Path C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery.ps1 -Verbose
+Use `git pull` to update to a newer version when available or clone the
+repository again.
 
-Register-PSRepository -Name LocalRepo1 -SourceLocation "C:\Users\fishe\Google Drive\PowerShell" -InstallationPolicy Trusted
+Setup a local NuGet repository on a shared location. Google Drive is used as an
+example. You can use any valid name for the `Powershell` directory and
+`LocalRepo1`. `LocalRepo1` should be trusted so you can Install-Module from
+there.
 
-Publish-Script -Path C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery.ps1 -Repository "LocalRepo1"
+```Powershell
+mkdir "$env:USERPROFILE\Google Drive\Powershell"
+Register-PSRepository -Name LocalRepo1 -SourceLocation "$env:USERPROFILE\Google Drive\Powershell" -InstallationPolicy Trusted
+```
+
+[Publish-Module](http://go.microsoft.com/fwlink/?LinkId=821666) cloned
+repository to the shared location. Repeat this step after `git pull` on the
+battery.git repository.
+
+```Powershell
+Publish-Module -Path .\ScheduleTask_Test-IsOnBattery -Repository "LocalRepo1"
+```
+
+### Test-ModuleManifest
+
+`Test-ModuleManifest` checks the `.psd1` file and reports results similar to
+the following. This step is not necessary but useful for me when I make
+changes.
+
+```Powershell
+Test-ModuleManifest .\ScheduleTask_Test-IsOnBattery.psd1 | Format-List -Force
+
+
+Name              : ScheduleTask_Test-IsOnBattery
+Path              : C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery\ScheduleTask
+                    _Test-IsOnBattery.psd1
+Description       : Create/manage Task Scheduler entry to monitor battery charging and maximize
+                    battery lifetime.
+ModuleType        : Script
+Version           : 0.2.2
+NestedModules     : {}
+ExportedFunctions : {New-BurntToastNotification, Register-BatteryMonitor, Unregister-BatteryMonitor,
+                    Test-IsOnBattery}
+ExportedCmdlets   :
+ExportedVariables :
+ExportedAliases   :
+```
 
 ## Installation
 
-[ScheduleTask.ps1](file://./ScheduleTask.ps1) creates a Task Scheduler entry
-for the current user, called *Battery Monitor*. *Battery Monitor*, scheduled to
-run at user login, executes
 
-```powershell
-    .\Test-IsOnBattery.ps1 -computer [localhost] -sleep [600]
+Install the module in the `CurrentUser` location in `$env:PSModulePath` and make help available:
+
+* Install BurntToast, if not already. Instructions are available at
+  [BurntToast](https://github.com/Windos/BurntToast).
+* Then install `ScheduleTask_Test-IsOnBattery`:
+
+```Powershell
+Install-Module -Name ScheduleTask_Test-IsOnBattery -Repository LocalRepo1 -Scope CurrentUser
 ```
+## Usage
 
-On -computer [default: localhost], check every -sleep [default: 600 seconds]
-and send a notification to plug or unplug when outside the recommended power
-range.
+To make the help available and add `Battery Monitor` to the `Task Scheduler` app:
 
-The assumed location for the files is
-`%USERPROFILE%\Documents\Scripts\battery`. Other locations may prevent Task
-Scheduler from starting, e.g., `%USERPROFILE\Google Drive\Scripts\battery` fails
-to start. The path is hardcoded in *Battery Monitor.xml*: twice on line 46.
+```Powershell
+Import-Module ScheduleTask_Test-IsOnBattery
+Register-BatteryMonitor
+```
+Refer to help for additional details:
+
+```Powershell
+Get-Help Register-BatteryMonitor
+Get-Help Test-IsOnBattery
+Get-Help Unregister-BatteryMonitor
+```
 
 ## Dependencies
 
-* [BurntToast](https://www.powershellgallery.com/packages/BurntToast)
-  *ScheduleTask.ps1* will install under the `CurrentUser` if not already. It will
-  also set PSGallery as a Trusted `PSRepository`.
+* [BurntToast](https://www.Powershellgallery.com/packages/BurntToast)
+  should be installed under the `CurrentUser` if not already. PSGallery may need to be added as a Trusted `PSRepository`.
+
+### Development
+
+* [platyPS](https://github.com/Powershell/platyPS) for conversion of Markdown
+  help files to XML MAML format.
 
 ## Credit
 
-* [petri building battery manager powershell](https://www.petri.com/building-battery-manager-powershell) demonstrated how to access the battery status using `Get-WmiObject`.
+* [petri building battery manager Powershell](https://www.petri.com/building-battery-manager-Powershell) demonstrated how to access the battery status using `Get-WmiObject`.
 * [fossbytes should i keep laptop battery plugged all time harmful](https://fossbytes.com/should-i-keep-laptop-battery-plugged-all-time-harmful/) provides the rationale for the charging range.
+* [platyPS](https://github.com/Powershell/platyPS) for conversion of Markdown help files to XML MAML format.
 
 ## Change Log
+
+### v0.2.3
+
+* Use platyPS to generate XML MAML format help files. Markdown version in ./docs.
 
 ### v0.2.0
 * Convert scripts into functions and combine in a module.
@@ -70,7 +127,7 @@ to start. The path is hardcoded in *Battery Monitor.xml*: twice on line 46.
 
 ### v0.1.6
 
-* Change to powershell -ExecutionPolicy Bypass. Set-ExecutionPolicy does not need to be changed to Bypass for script to run as this can be set by powershell Param.
+* Change to Powershell -ExecutionPolicy Bypass. Set-ExecutionPolicy does not need to be changed to Bypass for script to run as this can be set by Powershell Param.
 * Combine Get-WmiObject calls into $BatteryStatus.
 * Change sleep from 600 seconds to Param $sleep with default a 600 seconds.
 
