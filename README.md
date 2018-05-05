@@ -108,6 +108,7 @@ Get-Help Unregister-BatteryMonitor
 
 * [platyPS](https://github.com/Powershell/platyPS) for conversion of Markdown
   help files to XML MAML format.
+* https://github.com/PowerShell/PowerShell-Docs/blob/live/appveyor.ps1
 
 ## Credit
 
@@ -120,6 +121,7 @@ Get-Help Unregister-BatteryMonitor
 ### v0.2.3
 
 * Use platyPS to generate XML MAML format help files. Markdown version in ./docs.
+* Add module installation instructions to README.
 
 ### v0.2.0
 * Convert scripts into functions and combine in a module.
