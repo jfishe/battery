@@ -1,8 +1,8 @@
 ---
 Module Name: ScheduleTask_Test-IsOnBattery
 Module Guid: dcd76b0f-5610-4169-9bb6-ab38db67e848
-Download Help Link: https://github.com/jfishe/battery/blob/master/maml/ScheduleTask_Test-IsOnBattery/ScheduleTask_Test-IsOnBattery-help.xml
-Help Version: 0.2.0.0
+Download Help Link: https://github.com/jfishe/battery/blob/master/maml/0.2/ScheduleTask_Test-IsOnBattery/ScheduleTask_Test-IsOnBattery-help.xml
+Help Version: 5.1.1.0
 Locale: en-US
 ---
 
