@@ -1,7 +1,7 @@
 ---
 external help file: ScheduleTask_Test-IsOnBattery-help.xml
 Module Name: ScheduleTask_Test-IsOnBattery
-online version:
+online version: https://github.com/jfishe/battery/blob/master/docs/Unregister-BatteryMonitor.md
 schema: 2.0.0
 ---
 
