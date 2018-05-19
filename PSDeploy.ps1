@@ -19,7 +19,7 @@
 
 .ICONURI 
 
-.EXTERNALMODULEDEPENDENCIES PlatyPS
+.EXTERNALMODULEDEPENDENCIES PSDeploy, PlatyPS
 
 .REQUIREDSCRIPTS 
 
@@ -33,7 +33,7 @@
 <# 
 
 .DESCRIPTION 
- PlayPS Deploy Script 
+ PSDeploy Script
 
 #> 
 
