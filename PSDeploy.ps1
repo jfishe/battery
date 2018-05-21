@@ -15,7 +15,7 @@
 
 .LICENSEURI https://github.com/jfishe/battery/blob/master/LICENSE.md
 
-.PROJECTURI 
+.PROJECTURI https://github.com/jfishe/battery
 
 .ICONURI 
 
