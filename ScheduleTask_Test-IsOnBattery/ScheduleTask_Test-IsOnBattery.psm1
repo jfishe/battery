@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 0.2.2
+.VERSION 0.3.0
 
 .GUID 858af939-79b0-40c6-8bf7-e72ac5ea1149
 
@@ -46,26 +46,43 @@ Param()
 
 Function Register-BatteryMonitor {
 
-# Update computer name and user name in Task Scheduler XML file
-    $xml = $XmlBatteryMonitor
-    $xml.Task.Triggers.LogonTrigger.UserId = "$env:COMPUTERNAME\$env:USERNAME"
+    $TaskName = 'Battery Monitor'
+
+    $Description = 'Send Toast notification when battery is unplugged below '`
+        + '50% and plugged above 75%. Do not send notifications when '`
+        + 'FullyCharged.'
+
+    $Argument = '-WindowStyle Hidden -ExecutionPolicy Bypass -NoProfile '`
+        + '"Test-IsOnBattery" -RunType $true'
+
+
+    $TimeSpan = New-TimeSpan -Minutes 5
+    $Trigger = New-ScheduledTaskTrigger -RandomDelay $TimeSpan -AtLogOn `
+        -User "$env:USERNAME"
+    $Action = New-ScheduledTaskAction -Execute 'Powershell.exe' `
+        -Argument $Argument
 
     Try {
-        Register-ScheduledTask -Xml $xml.OuterXml -TaskName "Battery Monitor" -User $env:COMPUTERNAME\$env:USERNAME  -ErrorAction Stop
+        Register-ScheduledTask -Action $Action -Trigger $Trigger `
+            -TaskName $TaskName -Description $Description `
+            -ErrorAction Stop
     } Catch  [Microsoft.Management.Infrastructure.CimException] {
-        Write-Host ('Task Scheduler app already has Battery Monitor registered.',
-                    'Select Yes to register a new Battery Monitor.',
-                    'Select No to Cancel.'
-                   ) -Separator "`n"
+        Write-Warning -Message `
+            ('Task Scheduler app already has Battery Monitor registered.',
+              'Select Yes to register a new Battery Monitor.',
+              'Select No to Cancel.'
+            ) -Separator "`n"
 
-        Unregister-ScheduledTask -TaskName "Battery Monitor" -Confirm
-        Register-ScheduledTask -Xml $xml.OuterXml -TaskName "Battery Monitor" -User $env:COMPUTERNAME\$env:USERNAME  -ErrorAction Stop
+        Unregister-ScheduledTask -TaskName $TaskName -Confirm
+        Register-ScheduledTask -Action $Action -Trigger $Trigger `
+            -TaskName $TaskName -Description $Description `
+            -ErrorAction Stop
     }
 }
 
 Function Unregister-BatteryMonitor {
 
-    Unregister-ScheduledTask -TaskName "Battery Monitor" -Confirm
+    Unregister-ScheduledTask -TaskName $TaskName -Confirm
 }
 
 Function Test-IsOnBattery {
@@ -100,60 +117,6 @@ Function Test-IsOnBattery {
 
         Start-Sleep -Seconds $sleep
     }
-}
-# Workflow BatteryMonitor { 'Workflow' }
-
-[XML]$XmlBatteryMonitor = Data { @'
-<?xml version="1.0" encoding="UTF-16"?>
-<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
-  <RegistrationInfo>
-    <Date>2018-02-11T12:46:52.982696</Date>
-    <Author>JOHN-AUD9AR3\fishe</Author>
-    <Description>Send Toast notification when battery is unplugged below 50% and plugged above 75%. Do not send notifications when plugged above 99%.</Description>
-    <URI>\Battery Monitor</URI>
-  </RegistrationInfo>
-  <Triggers>
-    <LogonTrigger>
-      <Enabled>true</Enabled>
-      <UserId>%COMPUTERNAME%\%USERNAME%</UserId>
-    </LogonTrigger>
-  </Triggers>
-  <Principals>
-    <Principal id="Author">
-      <UserId>S-1-5-21-4124979968-6801981-3404956818-1001</UserId>
-      <LogonType>InteractiveToken</LogonType>
-      <RunLevel>LeastPrivilege</RunLevel>
-    </Principal>
-  </Principals>
-  <Settings>
-    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
-    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
-    <StopIfGoingOnBatteries>true</StopIfGoingOnBatteries>
-    <AllowHardTerminate>true</AllowHardTerminate>
-    <StartWhenAvailable>false</StartWhenAvailable>
-    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
-    <IdleSettings>
-      <StopOnIdleEnd>true</StopOnIdleEnd>
-      <RestartOnIdle>false</RestartOnIdle>
-    </IdleSettings>
-    <AllowStartOnDemand>true</AllowStartOnDemand>
-    <Enabled>true</Enabled>
-    <Hidden>true</Hidden>
-    <RunOnlyIfIdle>false</RunOnlyIfIdle>
-    <DisallowStartOnRemoteAppSession>false</DisallowStartOnRemoteAppSession>
-    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
-    <WakeToRun>false</WakeToRun>
-    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
-    <Priority>7</Priority>
-  </Settings>
-  <Actions Context="Author">
-    <Exec>
-      <Command>Powershell.exe</Command>
-      <Arguments>-WindowStyle Hidden -ExecutionPolicy Bypass "Import-Module ScheduleTask_Test-IsOnBattery; Test-IsOnBattery" -RunType $true </Arguments>
-    </Exec>
-  </Actions>
-</Task>
-'@
 }
 
 Export-ModuleMember -Function Register-BatteryMonitor
