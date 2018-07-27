@@ -52,7 +52,7 @@ PowerShellVersion = '5.0'
 
 # Modules that must be imported into the global environment prior to importing this module
 # RequiredModules = @()
-RequiredModules = @(@{ModuleName = 'BurntToast'; ModuleVersion = "0.6.1"})
+# RequiredModules = @(@{ModuleName = 'BurntToast'; ModuleVersion = "0.6.1"})
 # RequiredModules = @('BitsTransfer',
 #                @{ModuleName = 'PSScheduledJob'; GUID = '50cdb55f-5ab7-489f-9e94-4ec21ff51e59'; ModuleVersion = '1.0.0.0'; })
 
@@ -75,8 +75,8 @@ RequiredModules = @(@{ModuleName = 'BurntToast'; ModuleVersion = "0.6.1"})
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 # FunctionsToExport = @()
-FunctionsToExport = 'New-BurntToastNotification',
-                    'Register-BatteryMonitor',
+# FunctionsToExport = 'New-BurntToastNotification',
+FunctionsToExport = 'Register-BatteryMonitor',
                     'Unregister-BatteryMonitor',
                     'Test-IsOnBattery'
 
