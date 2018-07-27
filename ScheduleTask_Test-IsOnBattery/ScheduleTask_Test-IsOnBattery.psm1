@@ -88,12 +88,13 @@ Function Unregister-BatteryMonitor {
 }
 
 Function Test-IsOnBattery {
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact='Medium')]
 
     Param([string]$computer = "localhost",
           [int]$sleep = 600)
 
 # Add New-BurntToastNotification
-    Import-Module BurntToast -ErrorAction Stop
+    # Import-Module BurntToast -ErrorAction Stop
 
     Function Test-PowerOnLine{
         Param([string]$computer)
@@ -114,14 +115,24 @@ Function Test-IsOnBattery {
             $FullChargedCapacity * 100 ) % 100)
         $IsCharging = [BOOL]$BatteryStatus.Charging
 
+        Write-Verbose 'Status:'
+        [string]$Message = ('IsPowerOnLine: [{0}]', "`n",
+            'BatteryStatus: [{1}]', "`n", 'iPercent: [{2}]', "`n",
+            'IsCharging: [{3}]', "`n")
+        Write-Verbose ($Message -f $IsPowerOnLine, $BatteryStatus, $iPercent, $IsCharging)
         If ( (-NOT ($IsPowerOnLine)) -AND ($iPercent -lt 50) ) {
+            Write-Verbose 'Not plugged & < 50%'
             New-BurntToastNotification -Text "Please Plug In!", `
                 'Battery Charge < 50%!' -UniqueIdentifier 'Test-IsPowerOnLine'
         } ElseIf ((-NOT ($IsCharging)) -AND ($IsPowerOnLine)) {
+            Write-Verbose 'Not charging & plugged'
             Continue
         } ElseIf (($iPercent -gt 75) -AND ($IsPowerOnLine)) {
+            Write-Verbose '>75% and & plugged'
             New-BurntToastNotification -Text "Please Unplug!", `
                 'Battery Charge > 75%!' -UniqueIdentifier 'Test-IsPowerOnLine'
+        } Else {
+            Write-Verbose '50 - 75% & unplugged'
         }
 
         Start-Sleep -Seconds $sleep
