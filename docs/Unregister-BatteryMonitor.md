@@ -13,7 +13,7 @@ Monitor.
 
 ## SYNTAX
 
-```
+```powershell
 Unregister-BatteryMonitor
 ```
 
@@ -24,7 +24,7 @@ Monitor.
 ## EXAMPLES
 
 ### Example 1
-```Powershell
+```powershell
 PS C:\> Unregister-BatteryMonitor
 
 Confirm
@@ -37,7 +37,7 @@ When `Battery Monitor` is registered in Task Scheduler.
 
 ### Example 2
 
-```Powershell
+```powershell
 PS C:\> Unregister-BatteryMonitor
 Unregister-ScheduledTask : No MSFT_ScheduledTask objects found with property 'TaskName' equal to
 'Battery Monitor'.  Verify the value of the property and retry.
@@ -45,8 +45,7 @@ At C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery\Schedu
 .psm1:90 char:5
 +     Unregister-ScheduledTask -TaskName "Battery Monitor" -Confirm
 +     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : ObjectNotFound: (Battery Monitor:String) [Unregister-ScheduledTask], Cim
-   JobException
+    + CategoryInfo          : ObjectNotFound: (Battery Monitor:String) [Unregister-ScheduledTask], CimJobException
     + FullyQualifiedErrorId : CmdletizationQuery_NotFound_TaskName,Unregister-ScheduledTask
 ```
 

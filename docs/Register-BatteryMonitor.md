@@ -23,7 +23,7 @@ Register-BatteryMonitor Add/replace Task Scheduler App Libary entry for Battery
 Monitor.
 Battery Monitor will run Test-IsOnBattery at user login.
 
-The CurrentUser specified in $env:COMPUTERNAME\$env:USERNAME is used to create
+The CurrentUser specified in `$env:COMPUTERNAME\$env:USERNAME` is used to create
 and run the function.
 
 ## EXAMPLES
@@ -58,7 +58,9 @@ TaskPath                                       TaskName                         
 \                                              Battery Monitor                   Ready
 ```
 
-When Battery Monitor is already registered, un-register with confirmation and then register Battery Monitor. This is not necessary unless the XML template for Task Scheduler changes.
+When Battery Monitor is already registered, un-register with confirmation and
+then register Battery Monitor. This is not necessary unless the XML template
+for Task Scheduler changes.
 
 ## PARAMETERS
 
