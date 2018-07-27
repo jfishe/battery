@@ -67,11 +67,12 @@ Function Register-BatteryMonitor {
             -TaskName $TaskName -Description $Description `
             -ErrorAction Stop
     } Catch  [Microsoft.Management.Infrastructure.CimException] {
-        Write-Warning -Message `
-            ('Task Scheduler app already has Battery Monitor registered.',
-              'Select Yes to register a new Battery Monitor.',
-              'Select No to Cancel.'
-            ) -Separator "`n"
+        [string]$Warning = (
+            'Task Scheduler app already has Battery Monitor registered.',
+             'Select Yes to register a new Battery Monitor.',
+             'Select No to Cancel.'
+        )
+        Write-Warning -Message $Warning
 
         Unregister-ScheduledTask -TaskName $TaskName -Confirm
         Register-ScheduledTask -Action $Action -Trigger $Trigger `
