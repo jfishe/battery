@@ -11,7 +11,7 @@
     </command:details>
     <maml:description>
       <maml:para>Register-BatteryMonitor Add/replace Task Scheduler App Libary entry for Battery Monitor. Battery Monitor will run Test-IsOnBattery at user login.</maml:para>
-      <maml:para>The CurrentUser specified in $env:COMPUTERNAME\$env:USERNAME is used to create and run the function.</maml:para>
+      <maml:para>The CurrentUser specified in `$env:COMPUTERNAME\$env:USERNAME` is used to create and run the function.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -207,8 +207,7 @@ At C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery\Schedu
 .psm1:90 char:5
 +     Unregister-ScheduledTask -TaskName "Battery Monitor" -Confirm
 +     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : ObjectNotFound: (Battery Monitor:String) [Unregister-ScheduledTask], Cim
-   JobException
+    + CategoryInfo          : ObjectNotFound: (Battery Monitor:String) [Unregister-ScheduledTask], CimJobException
     + FullyQualifiedErrorId : CmdletizationQuery_NotFound_TaskName,Unregister-ScheduledTask</dev:code>
         <dev:remarks>
           <maml:para>When `Battery Monitor` is not registered in Task Scheduler.</maml:para>

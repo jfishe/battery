@@ -8,15 +8,19 @@ Locale: en-US
 
 # ScheduleTask_Test-IsOnBattery Module
 ## Description
-Create/manage Task Scheduler entry to monitor battery charging and maximize battery lifetime.
+Create/manage Task Scheduler entry to monitor battery charging and maximize
+battery lifetime.
 
 ## ScheduleTask_Test-IsOnBattery Cmdlets
 ### [Register-BatteryMonitor](Register-BatteryMonitor.md)
-Register-BatteryMonitor Add/replace Task Scheduler App Libary entry for Battery Monitor. Battery Monitor will run Test-IsOnBattery at user login.
+Register-BatteryMonitor Add/replace Task Scheduler App Libary entry for Battery
+Monitor. Battery Monitor will run Test-IsOnBattery at user login.
 
 ### [Test-IsOnBattery](Test-IsOnBattery.md)
-Test-IsOnBattery sends a Toast notification when battery charging/discharging is outside the optimum range for battery lifetime.
+Test-IsOnBattery sends a Toast notification when battery charging/discharging
+is outside the optimum range for battery lifetime.
 
 ### [Unregister-BatteryMonitor](Unregister-BatteryMonitor.md)
-Unregister-BatteryMonitor remove Task Scheduler App Libary entry for Battery Monitor.
+Unregister-BatteryMonitor remove Task Scheduler App Libary entry for Battery
+Monitor.
 
