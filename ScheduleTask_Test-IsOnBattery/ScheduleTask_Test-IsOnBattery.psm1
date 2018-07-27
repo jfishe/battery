@@ -44,9 +44,10 @@ battery lifetime.
 #>
 Param()
 
+$TaskName = 'Battery Monitor'
+
 Function Register-BatteryMonitor {
 
-    $TaskName = 'Battery Monitor'
 
     $Description = 'Send Toast notification when battery is unplugged below '`
         + '50% and plugged above 75%. Do not send notifications when '`
