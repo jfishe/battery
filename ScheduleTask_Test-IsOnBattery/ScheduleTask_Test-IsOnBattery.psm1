@@ -88,10 +88,10 @@ Function Unregister-BatteryMonitor {
 }
 
 Function Test-IsOnBattery {
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact='Medium')]
 
     Param([string]$computer = "localhost",
-          [int]$sleep = 600)
+          [int]$sleep = 600,
+          [switch]$Verbose)
 
 # Add New-BurntToastNotification
     # Import-Module BurntToast -ErrorAction Stop
@@ -126,7 +126,6 @@ Function Test-IsOnBattery {
                 'Battery Charge < 50%!' -UniqueIdentifier 'Test-IsPowerOnLine'
         } ElseIf ((-NOT ($IsCharging)) -AND ($IsPowerOnLine)) {
             Write-Verbose 'Not charging & plugged'
-            Continue
         } ElseIf (($iPercent -gt 75) -AND ($IsPowerOnLine)) {
             Write-Verbose '>75% and & plugged'
             New-BurntToastNotification -Text "Please Unplug!", `
