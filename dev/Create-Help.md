@@ -8,7 +8,7 @@ Edit the templates in `.\out`:
 
 * `..\dude\ScheduleTask_Test-IsOnBattery.md`
     * Delete `{{Please enter FwLink manually}}` and fill in `{{ }}` module description.
-    * Remove `Cmdlets` which is not supporte
+    * Remove `Cmdlets` which is not supported.
     * Rename to `README.md` if you want Github to display this file when you enter the `docs` folder.
 * In the other files fill in the Github URL next to `online version:`. Fill in the rest of the template with the help information.
 
