@@ -20,7 +20,7 @@ will not be issued since fully charged is a reasonably good condition. Between
 
 Clone the git repository into a convenient location and change to the cloned directory.
 
-```Powershell
+```powershell
 git clone https://github.com/jfishe/battery.git # Add path to battery destination if desired.
 cd battery # The following commands assume this current working directory.
 ```
@@ -33,7 +33,7 @@ example. You can use any valid name for the `Powershell` directory and
 `LocalRepo1`. `LocalRepo1` should be trusted so you can Install-Module from
 there.
 
-```Powershell
+```powershell
 mkdir "$env:USERPROFILE\Google Drive\Powershell"
 Register-PSRepository -Name LocalRepo1 -SourceLocation "$env:USERPROFILE\Google Drive\Powershell" -InstallationPolicy Trusted
 ```
@@ -42,7 +42,7 @@ Register-PSRepository -Name LocalRepo1 -SourceLocation "$env:USERPROFILE\Google 
 repository to the shared location. Repeat this step after `git pull` on the
 battery.git repository.
 
-```Powershell
+```powershell
 Publish-Module -Path .\ScheduleTask_Test-IsOnBattery -Repository "LocalRepo1"
 ```
 
@@ -52,7 +52,7 @@ Publish-Module -Path .\ScheduleTask_Test-IsOnBattery -Repository "LocalRepo1"
 the following. This step is not necessary but useful for me when I make
 changes.
 
-```Powershell
+```powershell
 Test-ModuleManifest .\ScheduleTask_Test-IsOnBattery.psd1 | Format-List -Force
 
 
@@ -80,20 +80,20 @@ Install the module in the `CurrentUser` location in `$env:PSModulePath` and make
   [BurntToast](https://github.com/Windos/BurntToast).
 * Then install `ScheduleTask_Test-IsOnBattery`:
 
-```Powershell
+```powershell
 Install-Module -Name ScheduleTask_Test-IsOnBattery -Repository LocalRepo1 -Scope CurrentUser
 ```
 ## Usage
 
 To make the help available and add `Battery Monitor` to the `Task Scheduler` app:
 
-```Powershell
+```powershell
 Import-Module ScheduleTask_Test-IsOnBattery
 Register-BatteryMonitor
 ```
 Refer to help for additional details:
 
-```Powershell
+```powershell
 Get-Help Register-BatteryMonitor
 Get-Help Test-IsOnBattery
 Get-Help Unregister-BatteryMonitor
@@ -103,12 +103,14 @@ Get-Help Unregister-BatteryMonitor
 
 * [BurntToast](https://www.Powershellgallery.com/packages/BurntToast)
   should be installed under the `CurrentUser` if not already. PSGallery may need to be added as a Trusted `PSRepository`.
+* [ScheduledTasks](https://docs.microsoft.com/en-us/powershell/module/scheduledtasks/?view=win10-ps) should be installed by default under Windows 10. It provides the cmdlets used to interact with Task Scheduler.
 
 ### Development
 
 * [platyPS](https://github.com/Powershell/platyPS) for conversion of Markdown
   help files to XML MAML format.
 * https://github.com/PowerShell/PowerShell-Docs/blob/live/appveyor.ps1
+* [Setting up an Internal PowerShellGet Repository](https://blogs.msdn.microsoft.com/powershell/2014/05/20/setting-up-an-internal-powershellget-repository/) provides instructions for setting up NuGet creating a local repository such as LocalRepo1.
 
 ## Credit
 
