@@ -14,7 +14,7 @@ is outside the optimum range for battery lifetime.
 ## SYNTAX
 
 ```
-Test-IsOnBattery [[-computer] <String>] [[-sleep] <Int32>]
+Test-IsOnBattery [[-computer] <String>] [[-sleep] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -69,6 +69,9 @@ Default value: 600
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

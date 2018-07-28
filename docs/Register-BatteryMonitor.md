@@ -15,7 +15,7 @@ Battery Monitor will run Test-IsOnBattery at user login.
 ## SYNTAX
 
 ```
-Register-BatteryMonitor
+Register-BatteryMonitor [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,8 +23,8 @@ Register-BatteryMonitor Add/replace Task Scheduler App Libary entry for Battery
 Monitor.
 Battery Monitor will run Test-IsOnBattery at user login.
 
-The CurrentUser specified in `$env:COMPUTERNAME\$env:USERNAME` is used to create
-and run the function.
+The CurrentUser specified in `$env:USERNAME` is used to create and run the
+function.
 
 ## EXAMPLES
 
@@ -63,6 +63,9 @@ then register Battery Monitor. This is not necessary unless the XML template
 for Task Scheduler changes.
 
 ## PARAMETERS
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

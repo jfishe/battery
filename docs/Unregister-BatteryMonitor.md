@@ -13,8 +13,8 @@ Monitor.
 
 ## SYNTAX
 
-```powershell
-Unregister-BatteryMonitor
+```
+Unregister-BatteryMonitor [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -52,6 +52,9 @@ At C:\Users\fishe\Documents\Scripts\battery\ScheduleTask_Test-IsOnBattery\Schedu
 When `Battery Monitor` is not registered in Task Scheduler.
 
 ## PARAMETERS
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

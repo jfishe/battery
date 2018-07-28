@@ -11,7 +11,7 @@
     </command:details>
     <maml:description>
       <maml:para>Register-BatteryMonitor Add/replace Task Scheduler App Libary entry for Battery Monitor. Battery Monitor will run Test-IsOnBattery at user login.</maml:para>
-      <maml:para>The CurrentUser specified in `$env:COMPUTERNAME\$env:USERNAME` is used to create and run the function.</maml:para>
+      <maml:para>The CurrentUser specified in `$env:USERNAME` is used to create and run the function.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
