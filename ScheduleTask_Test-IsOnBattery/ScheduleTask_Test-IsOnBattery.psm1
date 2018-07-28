@@ -132,7 +132,7 @@ Function Test-IsOnBattery {
             New-BurntToastNotification -Text "Please Unplug!", `
                 'Battery Charge > 75%!' -UniqueIdentifier 'Test-IsPowerOnLine'
         } Else {
-            Write-Verbose '50 - 75% & unplugged'
+            Write-Verbose '>50% & unplugged'
         }
 
         Start-Sleep -Seconds $sleep
