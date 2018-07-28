@@ -120,6 +120,19 @@ Get-Help Unregister-BatteryMonitor
 
 ## Change Log
 
+### v0.3.0
+
+Refactor to use ScheduledTasks module to generate Task Scheduler entry. Remove
+XML string that was exported from Task Schedule.
+
+Remove BurntToast from exported functions as it is available in the environment by default.
+
+Add Write-Verbose statement to echo the current state.
+
+Automate publish-module with PSDeploy.
+
+TODO: Replace WMI with CIM call.
+
 ### v0.2.3
 
 * Use platyPS to generate XML MAML format help files. Markdown version in ./docs.
