@@ -46,4 +46,10 @@ Deploy ScheduleTask_Test-IsOnBattery {
             Force = $true
         }
     }
+
+    By PSGalleryModule {
+        FromSource '.\ScheduleTask_Test-IsOnBattery'
+        To 'LocalRepo1'
+        Tagged Prod
+    }
 }
