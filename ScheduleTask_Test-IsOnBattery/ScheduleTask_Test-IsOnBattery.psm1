@@ -55,7 +55,7 @@ Function Register-BatteryMonitor {
         + 'FullyCharged.'
 
     $Argument = '-WindowStyle Hidden -ExecutionPolicy Bypass -NoProfile '`
-        + '"Test-IsOnBattery" -RunType $true'
+        + '"Test-IsOnBattery"'
 
 
     $TimeSpan = New-TimeSpan -Minutes 5
