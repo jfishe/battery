@@ -106,6 +106,8 @@ Function Test-IsOnBattery {
         -Class BatteryFullChargedCapacity -Namespace root\wmi `
             -ComputerName $computer).FullChargedCapacity
 
+    $ToastHeader = New-BTHeader -Id '001' -Title 'Battery Monitor'
+
     while ($true) {
         $IsPowerOnLine = Test-PowerOnLine($computer)
         $BatteryStatus = (Get-WmiObject -Class BatteryStatus `
@@ -119,16 +121,19 @@ Function Test-IsOnBattery {
             'BatteryStatus: [{1}]', 'iPercent: [{2}]', 'IsCharging: [{3}]') `
             -Join "`n`t"
         Write-Verbose ($Message -f $IsPowerOnLine, $BatteryStatus, $iPercent, $IsCharging)
+
         If ( (-NOT ($IsPowerOnLine)) -AND ($iPercent -lt 50) ) {
             Write-Verbose 'Not plugged & < 50%'
             New-BurntToastNotification -Text "Please Plug In!", `
-                'Battery Charge < 50%!' -UniqueIdentifier 'Test-IsPowerOnLine'
+                'Battery Charge < 50%!' -UniqueIdentifier 'Test-IsPowerOnLine' `
+                -Header $ToastHeader
         } ElseIf ((-NOT ($IsCharging)) -AND ($IsPowerOnLine)) {
             Write-Verbose 'Not charging & plugged'
         } ElseIf (($iPercent -gt 75) -AND ($IsPowerOnLine)) {
             Write-Verbose '>75% and & plugged'
             New-BurntToastNotification -Text "Please Unplug!", `
-                'Battery Charge > 75%!' -UniqueIdentifier 'Test-IsPowerOnLine'
+                'Battery Charge > 75%!' -UniqueIdentifier 'Test-IsPowerOnLine' `
+                -Header $ToastHeader
         } Else {
             Write-Verbose '>50% & unplugged'
         }
