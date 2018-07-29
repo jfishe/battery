@@ -46,6 +46,7 @@ Param()
 
 $TaskName = 'Battery Monitor'
 
+# .ExternalHelp ScheduleTask_Test-IsOnBattery-help.xml
 Function Register-BatteryMonitor {
 
 
@@ -82,11 +83,13 @@ Function Register-BatteryMonitor {
     }
 }
 
+# .ExternalHelp ScheduleTask_Test-IsOnBattery-help.xml
 Function Unregister-BatteryMonitor {
 
     Unregister-ScheduledTask -TaskName $TaskName -Confirm
 }
 
+# .ExternalHelp ScheduleTask_Test-IsOnBattery-help.xml
 Function Test-IsOnBattery {
     [CmdletBinding()]
 
